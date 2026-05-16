@@ -433,6 +433,7 @@ function openEditOfficeModal() {
   document.getElementById('editOfficeId').value = currentOffice.office_id;
   document.getElementById('editOfficeName').value = currentOffice.office_name;
   document.getElementById('editOfficeContact').value = info.contact || '';
+  document.getElementById('editOfficeServer').value = info.server || '';
   document.getElementById('editOfficeMapTile').value = info.map_tile_url || '';
   document.getElementById('editOfficeMaxNativeZoom').value = info.max_native_zoom || 19;
   var ne = info.ne_point || '';
@@ -446,6 +447,7 @@ function saveEditOffice() {
   var id = document.getElementById('editOfficeId').value;
   var name = document.getElementById('editOfficeName').value.trim();
   var contact = document.getElementById('editOfficeContact').value.trim();
+  var server = document.getElementById('editOfficeServer').value.trim();
   var tile = document.getElementById('editOfficeMapTile').value.trim();
   var maxNativeZoom = parseInt(document.getElementById('editOfficeMaxNativeZoom').value) || 19;
   var ne = document.getElementById('editOfficeNE').value.trim();
@@ -453,11 +455,12 @@ function saveEditOffice() {
   var existing = currentOffice._info || {};
   var ij = {};
   if (contact) ij.contact = contact;
+  if (server) ij.server = server;
   if (tile) ij.map_tile_url = tile;
   ij.max_native_zoom = maxNativeZoom;
   if (ne) ij.ne_point = ne;
   if (sw) ij.sw_point = sw;
-  var managed = { contact: 1, map_tile_url: 1, max_native_zoom: 1, ne_point: 1, sw_point: 1, area: 1 };
+  var managed = { contact: 1, server: 1, map_tile_url: 1, max_native_zoom: 1, ne_point: 1, sw_point: 1, area: 1 };
   for (var key in existing) {
     if (!managed[key]) ij[key] = existing[key];
   }
